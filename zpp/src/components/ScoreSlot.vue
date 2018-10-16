@@ -5,34 +5,24 @@
     {{user.elo}}
     {{user.wins}}
     {{user.losses}}
+    {{service}} Service
     <div class="user-stats">
-     
     </div>
   </div>
 </template>
 
 <script>
-  export default {
+export default {
   name: 'ScoreSlot',
   props: {
-    score: {
-      default: 0
-    },
+    score: 0,
     user: {},
+    service: false,
   },
   beforeMount() {
-    // this.user = {
-    //   name: 'Andy',
-    //   elo: 2000,
-    //   wins: 22,
-    //   losses: 1,
-    // }
   },
 };
 </script>
 
 <style>
-  li {
-    color: black
-  }
 </style>
