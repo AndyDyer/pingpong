@@ -1,13 +1,16 @@
 <template>
   <div class="score-slot">
-    {{score}}
-    {{user.name}}
-    {{user.elo}}
-    {{user.wins}}
-    {{user.losses}}
-    {{service}} Service
-    <div class="user-stats">
+    <div class="score">
+      {{score}}
     </div>
+    <div class="user-stats">
+      <span class="name"> {{user.name}} </span>
+      ELO: {{user.elo}}
+      <span>
+        {{user.wins}}W - {{user.losses}}L
+      </span>
+    </div>
+    <span v-show="service"> Serving </span>
   </div>
 </template>
 
@@ -19,10 +22,26 @@ export default {
     user: {},
     service: false,
   },
-  beforeMount() {
-  },
 };
 </script>
 
 <style>
+.score-slot {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.score {
+  font-size: 20em;
+  flex-grow: 2
+}
+.user-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.name {
+  font-size: 5em;
+  flex-grow: 2
+}
 </style>
