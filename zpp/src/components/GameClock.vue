@@ -31,11 +31,14 @@ export default {
       return this.getDate().getSeconds();
     },
     getTime() {
-      this.time = `${this.getHours()}:${this.getMinutes()}`;
+      return `${this.getHours()}:${this.getMinutes()}`;
     },
   },
 };
 </script>
 
 <style scoped>
+.time {
+  font-size: 4em
+}
 </style>
