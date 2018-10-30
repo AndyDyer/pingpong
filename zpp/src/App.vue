@@ -20,8 +20,8 @@ export default {
   name: 'app',
   data: () => ({
     settings: {},
-    gameReady: true, // TODO change to false to start
-    settingsSet: true, // TODO change to false to start
+    gameReady: false, // TODO change to false to start
+    settingsSet: false, // TODO change to false to start
   }),
   components: {
     GameClock,
