@@ -1,8 +1,10 @@
 <template>
   <div class="score-slot">
+    
     <div class="score">
       {{score}}
     </div>
+    <span class="serve" v-show="service"> Serving </span>
     <div class="user-stats">
       <span class="name"> {{user.name}} </span>
       ELO: {{user.elo}}
@@ -10,7 +12,7 @@
         {{user.wins}}W - {{user.losses}}L
       </span>
     </div>
-    <span v-show="service"> Serving </span>
+    
   </div>
 </template>
 
@@ -43,5 +45,9 @@ export default {
 .name {
   font-size: 5em;
   flex-grow: 2
+}
+.serve {
+  font-size: 2em;
+  font-weight: 600;
 }
 </style>

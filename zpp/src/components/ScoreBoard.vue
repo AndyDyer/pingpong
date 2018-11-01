@@ -1,7 +1,8 @@
 <template>
   <div class="score-board">
-    <h2> {{gameData.gameTitle}} </h2>
-    <h1 v-show="gameOver"> GAME OVER ps andrew remove me </h1>
+    <h1 v-if="gameOver == false"> Game {{gameData.gameNumber}} </h1>
+    <h2 v-show="gameOver"> Game {{gameData.gameNumber}} is over! </h2>
+    <h2> {{ matchData.player1Wins}} - {{ matchData.player2Wins }} </h2>
     <div class="score-slots-container">
       <ScoreSlot
       :score='leftPlayerScore'
@@ -32,6 +33,11 @@ export default {
   }),
   props: {
     gameData: {},
+    matchData: {
+      player1Wins: 0,
+      player2Wins: 0,
+      gamesList: [],
+    },
   },
   components: {
     ScoreSlot,
@@ -65,31 +71,13 @@ export default {
     },
     gameOver(val) {
       if (val) {
-        this.$emit('game-over', this.leftPlayerScore, this.rightPlayerScore);
-        // this.leftPlayerScore = 0;
-        // this.rightPlayerScore = 0; TODO undo comment
+        this.$emit('game-over', this.leftPlayerScore, this.rightPlayerScore)
       }
     },
   },
   beforeMount() {
     this.service = Math.round(Math.random()) === 1 ? 'leftPlayer' : 'rightPlayer';
-    // stubbed data below
-    this.gameData = {
-      gameTitle: 'Game 1',
-      player1: {
-        name: 'Andy',
-        elo: 2000,
-        wins: 15,
-        losses: 5,
-      },
-      player2: {
-        name: 'Shando',
-        elo: 1505,
-        wins: 10,
-        losses: 5,
-      },
-    };
-    // stubbed data above
+  
     document.addEventListener('keydown', (event) => {
       // event.preventDefault();
       // event.stopPropagation();
@@ -133,8 +121,9 @@ export default {
           break;
       }
     },
-  },
-};
+  }
+}
+
 </script>
 
 <style>
