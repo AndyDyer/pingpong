@@ -36,7 +36,7 @@ export default {
   watch: {
     currentStep(val) {
       if (val === 'done') {
-        this.callServer()
+        this.callServer();
       }
     },
   },
@@ -47,17 +47,16 @@ export default {
     document.removeEventListener('keydown', this.cycleStep);
   },
   methods: {
-    callServer() { 
+    callServer() {
       // TODO put in call to flask server and emit
-      console.log('wtf');
-      this.$emit('done')
+      this.$emit('done');
     },
     cycleStep(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
         this.currentStepIndex = this.currentStepIndex + 1;
       } else if (e.key === 'Tab') {
-         e.preventDefault();
+        e.preventDefault();
         this.currentStepIndex = this.currentStepIndex - 1;
       }
     },

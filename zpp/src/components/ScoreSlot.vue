@@ -1,7 +1,9 @@
 <template>
   <div class="score-slot">
-    <div class="score">
-      {{score}}
+    <div
+      class="score"
+      :class="{ underline: service, winner: winner }"
+      > {{score}}
     </div>
     <div class="user-stats">
       <span class="name"> {{user.name}} </span>
@@ -10,7 +12,6 @@
         {{user.wins}}W - {{user.losses}}L
       </span>
     </div>
-    <span v-show="service"> Serving </span>
   </div>
 </template>
 
@@ -21,6 +22,7 @@ export default {
     score: 0,
     user: {},
     service: false,
+    winner: false,
   },
 };
 </script>
@@ -32,13 +34,19 @@ export default {
   justify-content: space-evenly;
 }
 .score {
-  font-size: 20em;
+  font-size: 12em;
   flex-grow: 2
 }
 .user-stats {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+}
+.winner {
+  color: green;
+}
+.underline {
+  text-decoration: underline;
 }
 .name {
   font-size: 5em;

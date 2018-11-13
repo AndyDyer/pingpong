@@ -1,16 +1,15 @@
 <template>
   <div class="score-board">
-    <h2> {{gameData.gameTitle}} </h2>
-    <h1 v-show="gameOver"> GAME OVER ps andrew remove me </h1>
+    <h2> Game {{matchData.gamesList.length + 1}}</h2>
     <div class="score-slots-container">
       <ScoreSlot
       :score='leftPlayerScore'
-      :user='gameData.player1'
+      :user='userData.player1'
       :service="service === 'leftPlayer'"
       ></ScoreSlot>
       <ScoreSlot
       :score='rightPlayerScore'
-      :user='gameData.player2'
+      :user='userData.player2'
       :service="service === 'rightPlayer'"
       ></ScoreSlot>
     </div>
@@ -22,21 +21,27 @@
 /* eslint-disable no-mixed-operators */
 /* eslint-disable consistent-return */
 import ScoreSlot from './ScoreSlot.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ScoreBoard',
   data: () => ({
-    leftPlayerScore: 0,
-    rightPlayerScore: 0,
     service: '',
   }),
   props: {
-    gameData: {},
+    matchData: {},
+    userData: {},
   },
   components: {
     ScoreSlot,
   },
   computed: {
+    leftPlayerScore() {
+      return this.$store.state.playerOneScore;
+    },
+    rightPlayerScore() {
+      return this.$store.state.playerTwoScore;
+    },
     totalScore() {
       return this.leftPlayerScore + this.rightPlayerScore;
     },
@@ -66,44 +71,21 @@ export default {
     gameOver(val) {
       if (val) {
         this.$emit('game-over', this.leftPlayerScore, this.rightPlayerScore);
-        // this.leftPlayerScore = 0;
-        // this.rightPlayerScore = 0; TODO undo comment
       }
     },
   },
   beforeMount() {
     this.service = Math.round(Math.random()) === 1 ? 'leftPlayer' : 'rightPlayer';
-    // stubbed data below
-    this.gameData = {
-      gameTitle: 'Game 1',
-      player1: {
-        name: 'Andy',
-        elo: 2000,
-        wins: 15,
-        losses: 5,
-      },
-      player2: {
-        name: 'Shando',
-        elo: 1505,
-        wins: 10,
-        losses: 5,
-      },
-    };
-    // stubbed data above
-    document.addEventListener('keydown', (event) => {
-      // event.preventDefault();
-      // event.stopPropagation();
-      this.onClick(event);
-    });
+    document.addEventListener('keydown', this.incrementPlayerOneScore); // temporary
   },
-  created() {
+  created() { // settings
     this.scoreMax = 11;
     this.divisor = 2;
   },
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.incrementPlayerOneScore);
+  },
   methods: {
-    scoreWithin(n) {
-      return Math.abs(this.leftPlayerScore - this.rightPlayerScore) <= n;
-    },
     flipService() {
       if (this.service === 'leftPlayer') {
         this.service = 'rightPlayer';
@@ -111,28 +93,27 @@ export default {
         this.service = 'leftPlayer';
       }
     },
-    onClick(event) {
-      switch (event.which) {
-        case 39: // right arrow
-          this.rightPlayerScore++;
-          break;
-
-        case 37: // left arrow
-          this.leftPlayerScore++;
-          break;
-
-        case 40: // down arrow
-          this.rightPlayerScore--;
-          break;
-
-        case 38: // up arrow
-          this.leftPlayerScore--;
-          break;
-
-        default:
-          break;
+    onDoubleClick(event) {
+      if (event.button === 0) {
+        if (this.leftPlayerScore !== 0) {
+          this.decrementPlayerOneScore();
+        }
+      } else if (this.rightPlayerScore !== 0) {
+        this.decrementPlayerTwoScore();
       }
     },
+    onClick(event) {
+      if (event.button === 0) {
+        this.incrementPlayerOneScore();
+      } else {
+        this.incrementPlayerTwoScore();
+      }
+    },
+    ...mapActions(['incrementPlayerOneScore',
+      'incrementPlayerTwoScore',
+      'decrementPlayerOneScore',
+      'decrementPlayerTwoScore',
+    ]),
   },
 };
 </script>

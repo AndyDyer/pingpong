@@ -39,6 +39,7 @@ export default {
 
 <style scoped>
 .time {
-  font-size: 4em
+  font-size: 4em;
+  margin: 0;
 }
 </style>
