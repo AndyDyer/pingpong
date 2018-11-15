@@ -1,0 +1,32 @@
+Schemas -----------
+
+Player_Data:
+    {
+        elo: int,
+        history: int,
+        id: string,
+        wins: int,
+        losses: int,
+        name: String
+    }
+
+Game_Data:
+    {
+        player_1_score: int,
+        player_2_score: int
+    }
+
+Match Data:
+    {
+        participants: {
+            player_1: Player_Data,
+            player_2: Player_Data
+        },
+        games: [
+            Game_Data,
+            Game_Data,
+            ...
+            Game_Data
+        ],
+        league: str
+    }
