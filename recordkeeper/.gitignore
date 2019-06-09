@@ -1,3 +1,5 @@
 zpp_secret.json
 __pycache__
 python_env
+.DS_STORE
+.vs_code/

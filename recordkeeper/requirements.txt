@@ -1,4 +1,5 @@
 aspy.yaml==1.3.0
+behave==1.2.6
 certifi==2018.10.15
 cfgv==2.0.0
 chardet==3.0.4
@@ -16,9 +17,13 @@ Jinja2==2.10
 MarkupSafe==1.0
 nodeenv==1.3.3
 oauth2client==4.1.3
+parse==1.12.0
+parse-type==0.4.2
 pep8==1.7.1
+pre-commit==1.17.0
 pyasn1==0.4.4
 pyasn1-modules==0.2.2
+PyHamcrest==1.9.0
 PyYAML==5.1.1
 requests==2.19.1
 rsa==4.0

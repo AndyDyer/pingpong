@@ -26,15 +26,15 @@ class Match:
         player2_wins = 0
         for game in games_list:
             scores = game.split(":")
-        if scores[0] > scores[1]:
-            player1_wins += 1
-        else:
-            player2_wins += 1
-        if player1_wins > player2_wins:
-            self.winner = player1_id
-            self.loser = player2_id
-        else:
-            self.winner = player2_id
-            self.loser = player1_id
+            if scores[0] < scores[1]:
+                player1_wins += 1
+            else:
+                player2_wins += 1
+            if player1_wins > player2_wins:
+                self.winner = player1_id
+                self.loser = player2_id
+            else:
+                self.winner = player2_id
+                self.loser = player1_id
 
 my_match = Match(games=['11:2'], player1_id='123', player2_id='432')
