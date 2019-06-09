@@ -49,7 +49,6 @@ export default {
   methods: {
     callServer() { 
       // TODO put in call to flask server and emit
-      console.log('wtf');
       this.$emit('done')
     },
     cycleStep(e) {
